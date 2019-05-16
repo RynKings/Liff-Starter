@@ -86,9 +86,9 @@ function initializeApp(){
             liff.closeWindow();
         });
     }else if (type === 'textUrl') {
-        liff.sendMessages([{type: 'text', text: 'tests'}]);
         var messages = getJson(getParameterByName('textUrl'));
         liff.sendMessages(messages);
+        liff.sendMessages([{type: 'text', text: 'tests'}]);
     }
 }
 function getParameterByName(name, url) {
