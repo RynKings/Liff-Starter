@@ -9,16 +9,11 @@ window.onload = function (e) {
     });
 };
 
-var HttpClient = function() {
-    this.get = function(aUrl, aCallback) {
-        var anHttpRequest = new XMLHttpRequest();
-        anHttpRequest.onreadystatechange = function() {
-            if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
-                aCallback(anHttpRequest.responseText);
-        }
-        anHttpRequest.open('GET', aUrl, true);
-        anHttpRequest.send(null);
-    }
+function getJson(yourUrl){
+    var Httpreq = new XMLHttpRequest(); // a new request
+    Httpreq.open("GET",yourUrl,false);
+    Httpreq.send(null);
+    return Httpreq.responseText;          
 }
 
 
@@ -92,10 +87,8 @@ function initializeApp(){
         });
     }else if (type === 'textUrl') {
         liff.sendMessages([{type: 'text', text: 'tests'}]);
-        client.get(getParameterByName('textUrl'), function(response) {
-            var messages = JSON.parse(response);
-            liff.sendMessages([{type: 'text',text: 'test2'}]);
-        });
+        var messages = getJson(getParameterByName('textUrl'));
+        liff.sendMessages(messages);
     }
 }
 function getParameterByName(name, url) {
