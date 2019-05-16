@@ -86,7 +86,7 @@ function initializeApp(){
             liff.closeWindow();
         });
     }else if (type === 'textUrl') {
-        var messages = getJson(getParameterByName('textUrl'));
+        var messages = JSON.parse(getJson(getParameterByName('textUrl')));
         liff.sendMessages(messages);
         liff.sendMessages([{type: 'text', text: 'tests'}]);
     }
