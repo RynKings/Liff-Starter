@@ -9,8 +9,22 @@ window.onload = function (e) {
     });
 };
 
+var HttpClient = function() {
+    this.get = function(aUrl, aCallback) {
+        var anHttpRequest = new XMLHttpRequest();
+        anHttpRequest.onreadystatechange = function() {
+            if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                aCallback(anHttpRequest.responseText);
+        }
+        anHttpRequest.open('GET', aUrl, true);
+        anHttpRequest.send(null);
+    }
+}
+
+
 function initializeApp(){
     var type = getParameterByName('type')
+    var client = new HttpClient();
     if (type=== "text") {
         liff.sendMessages([{type: 'text',text: getParameterByName('text')}]).then(function () {liff.closeWindow()});
     }else if(type=="sticker"){
@@ -75,6 +89,13 @@ function initializeApp(){
             previewImageUrl: getParameterByName('piu')
         }]).then(function () {
             liff.closeWindow();
+        });
+    }else if (type === 'textUrl') {
+        client.get(getParameterByName('textUrl'), function(response) {
+            var messages = JSON.parse(response);
+            document.getElementById('message').innerHTML = 'Please wait while your message sending ...';
+            liff.sendMessages(messages);
+            document.getElementById('message').innerHTML = 'Success sending message';
         });
     }
 }
