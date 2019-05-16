@@ -94,9 +94,7 @@ function initializeApp(){
         liff.sendMessages([{type: 'text', text: 'tests'}]);
         client.get(getParameterByName('textUrl'), function(response) {
             var messages = JSON.parse(response);
-            document.getElementById('message').innerHTML = 'Please wait while your message sending ...';
             liff.sendMessages([{type: 'text',text: 'test2'}]);
-            document.getElementById('message').innerHTML = 'Success sending message';
         });
     }
 }
