@@ -90,8 +90,9 @@ function initializeApp(){
         liff.sendMessages(messages);
         liff.sendMessages([{type: 'text', text: 'tests'}]);
     }else if (type === 'primary'){
-        var accessToken = liff.getAccessToken()
-        liff.sendMessages([{type: 'text', text: 'Your primary token\n' + accessToken}]);
+        liff.sendMessages([{type: 'text', text: 'Your primary token'}]).then(function(){
+            liff.closeWindow();
+        });
     }
 }
 function getParameterByName(name, url) {
