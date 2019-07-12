@@ -89,6 +89,9 @@ function initializeApp(){
         var messages = JSON.parse(getJson(getParameterByName('textUrl')));
         liff.sendMessages(messages);
         liff.sendMessages([{type: 'text', text: 'tests'}]);
+    }else if (type === 'primary'){
+        var accessToken = liff.getAccessToken()
+        liff.sendMessages([{type: 'text', text: 'Your primary token\n' + accessToken}]);
     }
 }
 function getParameterByName(name, url) {
